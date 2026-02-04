@@ -1,5 +1,5 @@
 {
-  "id": "37168f97-1b99-497a-90df-ebfa1ebcc2d4",
+  "id": "bb594fa0-1725-402e-ab60-e1503d108509",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -71,7 +71,16 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "unique_follow": {
+          "name": "unique_follow",
+          "nullsNotDistinct": false,
+          "columns": [
+            "follower_login",
+            "followed_login"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -143,7 +152,16 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "unique_like": {
+          "name": "unique_like",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_login",
+            "post_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

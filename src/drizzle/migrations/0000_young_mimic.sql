@@ -3,7 +3,8 @@ CREATE TABLE "followers" (
 	"follower_login" text NOT NULL,
 	"followed_login" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "unique_follow" UNIQUE("follower_login","followed_login")
 );
 --> statement-breakpoint
 CREATE TABLE "likes" (
@@ -11,7 +12,8 @@ CREATE TABLE "likes" (
 	"user_login" text NOT NULL,
 	"post_id" integer NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "unique_like" UNIQUE("user_login","post_id")
 );
 --> statement-breakpoint
 CREATE TABLE "posts" (

@@ -55,10 +55,18 @@ describe("Users E2E", () => {
       .send({ user: userData });
 
     const userId = createResponse.body.id;
+
+    // Login para obter token
+    const loginRes = await request(app.server)
+      .post("/sessions")
+      .send({ login: userData.login, password: userData.password });
+    const token = loginRes.body.token;
+
     const newName = "Updated Name";
 
     const response = await request(app.server)
       .patch(`/users/${userId}`)
+      .set("x-session-token", token)
       .send({ user: { name: newName } });
 
     expect(response.status).toBe(201);
@@ -74,7 +82,15 @@ describe("Users E2E", () => {
 
     const userId = createResponse.body.id;
 
-    const response = await request(app.server).delete(`/users/${userId}`);
+    // Login para obter token
+    const loginRes = await request(app.server)
+      .post("/sessions")
+      .send({ login: userData.login, password: userData.password });
+    const token = loginRes.body.token;
+
+    const response = await request(app.server)
+      .delete(`/users/${userId}`)
+      .set("x-session-token", token);
 
     expect(response.status).toBe(204);
   });

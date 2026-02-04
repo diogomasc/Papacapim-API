@@ -25,11 +25,44 @@ export const updateUserRoute: FastifyPluginAsyncZod = async (app) => {
             password_confirmation: z.string().min(6).optional(),
           }),
         }),
+        headers: z.object({
+          "x-session-token": z.string(),
+        }),
       },
     },
     async (request, reply) => {
       const { id } = request.params;
       const { user: userData } = request.body;
+      const token = request.headers["x-session-token"];
+
+      // Valida sessão (Autenticação)
+      const [session] = await db
+        .select()
+        .from(sessions)
+        .where(eq(sessions.token, token))
+        .limit(1);
+
+      if (!session) {
+        return reply.status(401).send({ message: "Sessao invalida" });
+      }
+
+      // Busca usuario alvo
+      const [userToUpdate] = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, id))
+        .limit(1);
+
+      if (!userToUpdate) {
+        return reply.status(404).send({ message: "Usuario nao encontrado" });
+      }
+
+      // Valida permissão (Autorização)
+      if (userToUpdate.login !== session.userLogin) {
+        return reply
+          .status(403)
+          .send({ message: "Sem permissao para alterar este usuario" });
+      }
 
       // Valida confirmação de senha se a senha estiver sendo alterada
       if (
