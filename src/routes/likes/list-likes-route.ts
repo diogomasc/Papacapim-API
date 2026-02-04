@@ -36,7 +36,15 @@ export const listLikesRoute: FastifyPluginAsyncZod = async (app) => {
         .where(eq(likes.postId, postId))
         .orderBy(likes.createdAt);
 
-      return reply.status(200).send(result);
+      const mappedResult = result.map((like) => ({
+        id: like.id,
+        user_login: like.userLogin,
+        post_id: like.postId,
+        created_at: like.createdAt,
+        updated_at: like.updatedAt,
+      }));
+
+      return reply.status(200).send(mappedResult);
     },
   );
 };

@@ -45,7 +45,16 @@ export const listUserPostsRoute: FastifyPluginAsyncZod = async (app) => {
         .limit(limit)
         .offset(offset);
 
-      return reply.status(200).send(result);
+      const mappedResult = result.map((post) => ({
+        id: post.id,
+        user_login: post.userLogin,
+        post_id: post.postId,
+        message: post.message,
+        created_at: post.createdAt,
+        updated_at: post.updatedAt,
+      }));
+
+      return reply.status(200).send(mappedResult);
     },
   );
 };

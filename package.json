@@ -9,7 +9,10 @@
     "db:generate": "npx drizzle-kit generate",
     "db:migrate": "npx drizzle-kit migrate",
     "build": "tsup-node",
-    "start": "node dist/server.mjs"
+    "start": "node dist/server.mjs",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "validate": "npm run type-check && npm run lint"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +31,11 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/bcrypt": "^6.0.0"
+    "@types/bcrypt": "^6.0.0",
+    "@types/node": "^25.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3"
   }
 }

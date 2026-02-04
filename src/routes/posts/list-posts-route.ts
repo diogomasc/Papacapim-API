@@ -4,7 +4,7 @@ import { db } from "../../drizzle";
 import { posts } from "../../drizzle/schema/posts";
 import { followers } from "../../drizzle/schema/followers";
 import { sessions } from "../../drizzle/schema/sessions";
-import { eq, ilike, inArray, isNull } from "drizzle-orm";
+import { eq, ilike, inArray } from "drizzle-orm";
 
 export const listPostsRoute: FastifyPluginAsyncZod = async (app) => {
   app.get(
@@ -23,18 +23,6 @@ export const listPostsRoute: FastifyPluginAsyncZod = async (app) => {
             "x-session-token": z.string(),
           })
           .optional(),
-        response: {
-          200: z.array(
-            z.object({
-              id: z.number(),
-              user_login: z.string(),
-              post_id: z.number().nullable(),
-              message: z.string(),
-              created_at: z.date(),
-              updated_at: z.date(),
-            }),
-          ),
-        },
       },
     },
     async (request, reply) => {
@@ -92,7 +80,17 @@ export const listPostsRoute: FastifyPluginAsyncZod = async (app) => {
 
       const result = await query;
 
-      return reply.status(200).send(result);
+      // Map to snake_case for response
+      const mappedResult = result.map((post) => ({
+        id: post.id,
+        user_login: post.userLogin,
+        post_id: post.postId,
+        message: post.message,
+        created_at: post.createdAt,
+        updated_at: post.updatedAt,
+      }));
+
+      return reply.status(200).send(mappedResult);
     },
   );
 };
