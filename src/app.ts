@@ -10,7 +10,17 @@ import {
 import { routes } from "./routes";
 
 export async function createApp() {
-  const app = fastify();
+  const app = fastify({
+    logger: {
+      transport: {
+        target: "pino-pretty",
+        options: {
+          translateTime: "HH:MM:ss Z",
+          ignore: "pid,hostname",
+        },
+      },
+    },
+  });
 
   app.setSerializerCompiler(serializerCompiler);
   app.setValidatorCompiler(validatorCompiler);
