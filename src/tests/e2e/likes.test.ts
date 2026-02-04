@@ -61,12 +61,16 @@ describe("Likes E2E", () => {
   });
 
   it("should unlike a post", async () => {
-    // Curte primeiro
-    const likeResponse = await request(app.server)
+    // Garante que está curtido (idempotente)
+    await request(app.server)
       .post(`/posts/${postId}/likes`)
       .set("x-session-token", authToken);
 
-    const likeId = likeResponse.body.id;
+    // Busca o ID do like
+    const listResponse = await request(app.server).get(
+      `/posts/${postId}/likes`,
+    );
+    const likeId = listResponse.body[0].id;
 
     const response = await request(app.server)
       .delete(`/posts/${postId}/likes/${likeId}`)
