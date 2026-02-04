@@ -4,7 +4,7 @@ import { db } from "../../drizzle";
 import { followers } from "../../drizzle/schema/followers";
 import { sessions } from "../../drizzle/schema/sessions";
 import { users } from "../../drizzle/schema/users";
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { isUniqueConstraintError } from "../../functions/is-unique-constraint-error";
 
 export const followUserRoute: FastifyPluginAsyncZod = async (app) => {

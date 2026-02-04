@@ -5,7 +5,6 @@ import {
   timestamp,
   integer,
   unique,
-  primaryKey,
 } from "drizzle-orm/pg-core";
 import { users } from "./users";
 import { posts } from "./posts";

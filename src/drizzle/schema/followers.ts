@@ -1,11 +1,4 @@
-import {
-  pgTable,
-  serial,
-  text,
-  timestamp,
-  unique,
-  primaryKey,
-} from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, unique } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
 export const followers = pgTable(

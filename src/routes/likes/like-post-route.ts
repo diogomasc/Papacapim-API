@@ -3,7 +3,7 @@ import { z } from "zod";
 import { db } from "../../drizzle";
 import { likes } from "../../drizzle/schema/likes";
 import { sessions } from "../../drizzle/schema/sessions";
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { isUniqueConstraintError } from "../../functions/is-unique-constraint-error";
 
 export const likePostRoute: FastifyPluginAsyncZod = async (app) => {
