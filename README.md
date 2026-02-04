@@ -2,6 +2,8 @@
 
 Backend API RESTful para a rede social Papacapim, desenvolvida com Node.js, TypeScript, Fastify e PostgreSQL.
 
+> 💡 **Projeto inspirado na API [api.papacapim.just.pro.br](https://api.papacapim.just.pro.br/)**. O objetivo deste repositório é reproduzir as funcionalidades e endpoints da API original para fins de aprendizado e desenvolvimento.
+
 ## 🚀 Tecnologias
 
 - **Node.js 22** - Runtime JavaScript
