@@ -24,7 +24,7 @@ export const followUserRoute: FastifyPluginAsyncZod = async (app) => {
       const { login: followedLogin } = request.params;
       const token = request.headers["x-session-token"];
 
-      // Get current user from session
+      // Obtém usuário atual da sessão
       const [session] = await db
         .select()
         .from(sessions)

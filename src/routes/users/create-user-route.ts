@@ -24,16 +24,16 @@ export const createUserRoute: FastifyPluginAsyncZod = async (app) => {
     async (request, reply) => {
       const { user: userData } = request.body;
 
-      // Validate password confirmation
+      // Valida confirmação de senha
       if (userData.password !== userData.password_confirmation) {
         return reply.status(400).send({ message: "Senhas nao conferem" });
       }
 
-      // Hash password
+      // Gera hash da senha
       const passwordHash = await hashPassword(userData.password);
 
       try {
-        // Create user
+        // Cria usuário
         const [user] = await db
           .insert(users)
           .values({
@@ -52,7 +52,7 @@ export const createUserRoute: FastifyPluginAsyncZod = async (app) => {
         });
       } catch (error: any) {
         if (error.code === "23505") {
-          // Unique constraint violation
+          // Violação de constraint de unicidade
           return reply.status(400).send({ message: "Login ja existe" });
         }
         throw error;

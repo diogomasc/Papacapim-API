@@ -26,7 +26,7 @@ export const createPostRoute: FastifyPluginAsyncZod = async (app) => {
       const { post: postData } = request.body;
       const token = request.headers["x-session-token"];
 
-      // Get current user from session
+      // Obtém usuário atual da sessão
       const [session] = await db
         .select()
         .from(sessions)

@@ -37,7 +37,7 @@ export const listPostsRoute: FastifyPluginAsyncZod = async (app) => {
         .limit(limit)
         .offset(offset);
 
-      // Filter by feed (only posts from followed users)
+      // Filtra por feed (apenas posts de usuários seguidos)
       if (feed === 1) {
         const token = request.headers["x-session-token"];
 
@@ -57,7 +57,7 @@ export const listPostsRoute: FastifyPluginAsyncZod = async (app) => {
           return reply.status(401).send({ message: "Sessao invalida" });
         }
 
-        // Get followed users
+        // Obtém usuários seguidos
         const followedUsers = await db
           .select({ login: followers.followedLogin })
           .from(followers)
@@ -68,19 +68,19 @@ export const listPostsRoute: FastifyPluginAsyncZod = async (app) => {
         if (followedLogins.length > 0) {
           query = query.where(inArray(posts.userLogin, followedLogins)) as any;
         } else {
-          // No followed users, return empty array
+          // Nenhum usuário seguido, retorna array vazio
           return reply.status(200).send([]);
         }
       }
 
-      // Filter by search
+      // Filtra por busca
       if (search) {
         query = query.where(ilike(posts.message, `%${search}%`)) as any;
       }
 
       const result = await query;
 
-      // Map to snake_case for response
+      // Mapeia para snake_case para resposta
       const mappedResult = result.map((post) => ({
         id: post.id,
         user_login: post.userLogin,

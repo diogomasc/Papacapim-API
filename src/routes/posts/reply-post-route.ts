@@ -30,7 +30,7 @@ export const replyPostRoute: FastifyPluginAsyncZod = async (app) => {
       const { reply: replyData } = request.body;
       const token = request.headers["x-session-token"];
 
-      // Get current user from session
+      // Obtém usuário atual da sessão
       const [session] = await db
         .select()
         .from(sessions)
@@ -41,7 +41,7 @@ export const replyPostRoute: FastifyPluginAsyncZod = async (app) => {
         return reply.status(401).send({ message: "Sessao invalida" });
       }
 
-      // Verify post exists
+      // Verifica se o post existe
       const [originalPost] = await db
         .select()
         .from(posts)

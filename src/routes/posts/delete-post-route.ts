@@ -24,7 +24,7 @@ export const deletePostRoute: FastifyPluginAsyncZod = async (app) => {
       const { id } = request.params;
       const token = request.headers["x-session-token"];
 
-      // Get current user from session
+      // Obtém usuário atual da sessão
       const [session] = await db
         .select()
         .from(sessions)
@@ -35,7 +35,7 @@ export const deletePostRoute: FastifyPluginAsyncZod = async (app) => {
         return reply.status(401).send({ message: "Sessao invalida" });
       }
 
-      // Verify post belongs to user
+      // Verifica se o post pertence ao usuário
       const [post] = await db
         .select()
         .from(posts)

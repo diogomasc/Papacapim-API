@@ -24,7 +24,7 @@ export const likePostRoute: FastifyPluginAsyncZod = async (app) => {
       const { id: postId } = request.params;
       const token = request.headers["x-session-token"];
 
-      // Get current user from session
+      // Obtém usuário atual da sessão
       const [session] = await db
         .select()
         .from(sessions)

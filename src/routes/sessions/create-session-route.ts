@@ -23,7 +23,7 @@ export const createSessionRoute: FastifyPluginAsyncZod = async (app) => {
     async (request, reply) => {
       const { login, password } = request.body;
 
-      // Find user
+      // Busca usuário
       const [user] = await db
         .select()
         .from(users)
@@ -34,18 +34,18 @@ export const createSessionRoute: FastifyPluginAsyncZod = async (app) => {
         return reply.status(401).send({ message: "Credenciais invalidas" });
       }
 
-      // Verify password
+      // Verifica senha
       const isPasswordValid = await verifyPassword(password, user.passwordHash);
 
       if (!isPasswordValid) {
         return reply.status(401).send({ message: "Credenciais invalidas" });
       }
 
-      // Generate token
+      // Gera token
       const token = generateToken();
       const ip = request.ip;
 
-      // Create session
+      // Cria sessão
       const [session] = await db
         .insert(sessions)
         .values({

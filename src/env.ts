@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  // Server
+  // Servidor
   PORT: z.coerce.number().default(3333),
 
-  // Database
+  // Banco de dados
   DATABASE_URL: z.string().url(),
 
   // JWT

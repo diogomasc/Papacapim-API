@@ -30,7 +30,7 @@ export const updateUserRoute: FastifyPluginAsyncZod = async (app) => {
       const { id } = request.params;
       const { user: userData } = request.body;
 
-      // Validate password confirmation if password is being changed
+      // Valida confirmação de senha se a senha estiver sendo alterada
       if (
         userData.password &&
         userData.password !== userData.password_confirmation
@@ -53,7 +53,7 @@ export const updateUserRoute: FastifyPluginAsyncZod = async (app) => {
       if (userData.password) {
         updateData.passwordHash = await hashPassword(userData.password);
 
-        // Delete all sessions when password changes
+        // Deleta todas as sessões quando a senha muda
         const [currentUser] = await db
           .select()
           .from(users)
