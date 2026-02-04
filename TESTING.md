@@ -10,8 +10,8 @@ Esta API possui uma suíte completa de **testes End-to-End (E2E)** que cobrem to
   - Criar usuário
   - Listar usuários
   - Obter usuário por login
-  - Atualizar usuário
-  - Deletar usuário
+  - Atualizar usuário (com segurança)
+  - Deletar usuário (com segurança)
 
 - ✅ **Sessions (Autenticação)**: 2 testes
   - Login (criar sessão)
@@ -26,16 +26,24 @@ Esta API possui uma suíte completa de **testes End-to-End (E2E)** que cobrem to
   - Deletar post
 
 - ✅ **Followers (Seguidores)**: 3 testes
-  - Seguir usuário
+  - Seguir usuário (idempotente)
   - Listar seguidores
   - Deixar de seguir
 
 - ✅ **Likes (Curtidas)**: 3 testes
-  - Curtir post
+  - Curtir post (idempotente)
   - Listar curtidas
   - Remover curtida
 
-**Total: 19 testes E2E** ✨
+- ✅ **Validations (Sad Paths)**: 12 testes
+  - **Segurança de Usuário**: Tentar deletar/editar outro usuário
+  - **Validação de Cadastro**: Login duplicado, senha curta
+  - **Autenticação**: Senha errada, usuário inexistente
+  - **Postagens**: Deletar post alheio, post inexistente
+  - **Seguidores**: Seguir a si mesmo
+  - **Idempotência**: Seguir/Curtir duplicado (deve retornar 204)
+
+**Total: 31 testes E2E** ✨
 
 ## 🛠️ Ferramentas Utilizadas
 
@@ -111,7 +119,8 @@ src/tests/
     ├── sessions.test.ts
     ├── posts.test.ts
     ├── followers.test.ts
-    └── likes.test.ts
+    ├── likes.test.ts
+    └── validations.test.ts  # Testes de erro e segurança
 ```
 
 ## 💡 Exemplo de Teste
@@ -146,18 +155,17 @@ it("should create a new user", async () => {
 2. **Setup/Teardown**: beforeAll e afterAll para configurar e limpar
 3. **Dados Realistas**: Uso do Faker para gerar dados que parecem reais
 4. **Happy Path**: Testes focados no caminho feliz (sucesso)
-5. **Factories**: Reutilização de código para geração de dados
-6. **E2E Real**: Testes fazem requisições HTTP reais para a API
+5. **Sad Path**: Testes focados em erros e validações de segurança
+6. **Factories**: Reutilização de código para geração de dados
+7. **E2E Real**: Testes fazem requisições HTTP reais para a API
+8. **Segurança**: Testes validam permissões de edição/exclusão
 
 ## 📈 Próximos Passos
 
 Para 100% de cobertura, considere adicionar:
 
-- Testes de casos de erro (401, 404, 400, etc.)
-- Testes de validação de dados
-- Testes de edge cases
-- Testes de performance
-- Testes de integração com mock de banco
+- Testes de performance e carga
+- Testes de integração com mock de banco (para velocidade extrema)
 
 ## 🐛 Troubleshooting
 
@@ -167,7 +175,7 @@ Para 100% de cobertura, considere adicionar:
 
 **Erro: "relation does not exist"**
 
-- Solução: Execute `npm run pretest` para rodar migrations
+- Solução: Execute `npm run pretest` para rodar migrations (o `npm test` já faz isso automaticamente)
 
 **Testes lentos:**
 
@@ -176,4 +184,4 @@ Para 100% de cobertura, considere adicionar:
 
 ---
 
-**Status**: ✅ 19/19 testes passando | ✅ TypeScript validado | ✅ ESLint validado
+**Status**: ✅ 31/31 testes passando | ✅ TypeScript validado | ✅ ESLint validado | ✅ Sad Paths Cobertos
