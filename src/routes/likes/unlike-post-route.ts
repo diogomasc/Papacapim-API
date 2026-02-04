@@ -19,9 +19,6 @@ export const unlikePostRoute: FastifyPluginAsyncZod = async (app) => {
           id: z.coerce.number(),
           likeId: z.coerce.number(),
         }),
-        response: {
-          204: z.null(),
-        },
       },
     },
     async (request, reply) => {
@@ -45,7 +42,7 @@ export const unlikePostRoute: FastifyPluginAsyncZod = async (app) => {
           and(eq(likes.postId, postId), eq(likes.userLogin, session.userLogin)),
         );
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   );
 };

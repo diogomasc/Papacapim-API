@@ -18,15 +18,6 @@ export const followUserRoute: FastifyPluginAsyncZod = async (app) => {
         headers: z.object({
           "x-session-token": z.string(),
         }),
-        response: {
-          201: z.object({
-            id: z.number(),
-            follower_login: z.string(),
-            followed_login: z.string(),
-            created_at: z.date(),
-            updated_at: z.date(),
-          }),
-        },
       },
     },
     async (request, reply) => {

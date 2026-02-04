@@ -18,16 +18,6 @@ export const createSessionRoute: FastifyPluginAsyncZod = async (app) => {
           login: z.string(),
           password: z.string(),
         }),
-        response: {
-          200: z.object({
-            id: z.number(),
-            user_login: z.string(),
-            token: z.string(),
-            ip: z.string(),
-            created_at: z.date(),
-            updated_at: z.date(),
-          }),
-        },
       },
     },
     async (request, reply) => {

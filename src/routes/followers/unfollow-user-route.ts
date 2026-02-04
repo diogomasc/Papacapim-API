@@ -19,9 +19,6 @@ export const unfollowUserRoute: FastifyPluginAsyncZod = async (app) => {
         headers: z.object({
           "x-session-token": z.string(),
         }),
-        response: {
-          204: z.null(),
-        },
       },
     },
     async (request, reply) => {
@@ -48,7 +45,7 @@ export const unfollowUserRoute: FastifyPluginAsyncZod = async (app) => {
           ),
         );
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   );
 };

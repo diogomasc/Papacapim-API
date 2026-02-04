@@ -18,9 +18,6 @@ export const deletePostRoute: FastifyPluginAsyncZod = async (app) => {
         params: z.object({
           id: z.coerce.number(),
         }),
-        response: {
-          204: z.null(),
-        },
       },
     },
     async (request, reply) => {
@@ -57,7 +54,7 @@ export const deletePostRoute: FastifyPluginAsyncZod = async (app) => {
 
       await db.delete(posts).where(eq(posts.id, id));
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   );
 };

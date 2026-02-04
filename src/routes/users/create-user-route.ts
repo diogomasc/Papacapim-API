@@ -19,15 +19,6 @@ export const createUserRoute: FastifyPluginAsyncZod = async (app) => {
             password_confirmation: z.string().min(6),
           }),
         }),
-        response: {
-          201: z.object({
-            id: z.number(),
-            login: z.string(),
-            name: z.string(),
-            created_at: z.date(),
-            updated_at: z.date(),
-          }),
-        },
       },
     },
     async (request, reply) => {

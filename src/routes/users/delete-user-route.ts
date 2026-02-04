@@ -24,7 +24,7 @@ export const deleteUserRoute: FastifyPluginAsyncZod = async (app) => {
 
       await db.delete(users).where(eq(users.id, id));
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   );
 };

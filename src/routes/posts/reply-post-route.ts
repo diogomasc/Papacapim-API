@@ -23,16 +23,6 @@ export const replyPostRoute: FastifyPluginAsyncZod = async (app) => {
             message: z.string().min(1).max(500),
           }),
         }),
-        response: {
-          201: z.object({
-            id: z.number(),
-            user_login: z.string(),
-            post_id: z.number().nullable(),
-            message: z.string(),
-            created_at: z.date(),
-            updated_at: z.date(),
-          }),
-        },
       },
     },
     async (request, reply) => {

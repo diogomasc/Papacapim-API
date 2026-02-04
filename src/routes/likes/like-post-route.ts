@@ -18,15 +18,6 @@ export const likePostRoute: FastifyPluginAsyncZod = async (app) => {
         params: z.object({
           id: z.coerce.number(),
         }),
-        response: {
-          201: z.object({
-            id: z.number(),
-            user_login: z.string(),
-            post_id: z.number(),
-            created_at: z.date(),
-            updated_at: z.date(),
-          }),
-        },
       },
     },
     async (request, reply) => {

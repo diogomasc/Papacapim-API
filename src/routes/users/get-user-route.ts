@@ -14,15 +14,6 @@ export const getUserRoute: FastifyPluginAsyncZod = async (app) => {
         params: z.object({
           login: z.string(),
         }),
-        response: {
-          200: z.object({
-            id: z.number(),
-            login: z.string(),
-            name: z.string(),
-            created_at: z.date(),
-            updated_at: z.date(),
-          }),
-        },
       },
     },
     async (request, reply) => {

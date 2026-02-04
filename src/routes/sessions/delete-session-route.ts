@@ -24,7 +24,7 @@ export const deleteSessionRoute: FastifyPluginAsyncZod = async (app) => {
 
       await db.delete(sessions).where(eq(sessions.id, id));
 
-      return reply.status(204).send();
+      return reply.status(204).send(null);
     },
   );
 };
