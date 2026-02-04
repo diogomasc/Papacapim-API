@@ -3,7 +3,8 @@ import { z } from "zod";
 import { db } from "../../drizzle";
 import { likes } from "../../drizzle/schema/likes";
 import { sessions } from "../../drizzle/schema/sessions";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { isUniqueConstraintError } from "../../functions/is-unique-constraint-error";
 
 export const likePostRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
@@ -52,8 +53,9 @@ export const likePostRoute: FastifyPluginAsyncZod = async (app) => {
           updated_at: like.updatedAt,
         });
       } catch (error: any) {
-        if (error.code === "23505") {
-          return reply.status(400).send({ message: "Postagem ja curtida" });
+        if (isUniqueConstraintError(error)) {
+          // Já curtiu (idempotente)
+          return reply.status(204).send(null);
         }
         throw error;
       }

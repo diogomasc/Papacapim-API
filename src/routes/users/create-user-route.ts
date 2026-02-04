@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "../../drizzle";
 import { users } from "../../drizzle/schema/users";
 import { hashPassword } from "../../functions/hash-password";
+import { isUniqueConstraintError } from "../../functions/is-unique-constraint-error";
 
 export const createUserRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
@@ -51,7 +52,7 @@ export const createUserRoute: FastifyPluginAsyncZod = async (app) => {
           updated_at: user.updatedAt,
         });
       } catch (error: any) {
-        if (error.code === "23505") {
+        if (isUniqueConstraintError(error)) {
           // Violação de constraint de unicidade
           return reply.status(400).send({ message: "Login ja existe" });
         }

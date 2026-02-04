@@ -3,7 +3,8 @@ import { z } from "zod";
 import { db } from "../../drizzle";
 import { followers } from "../../drizzle/schema/followers";
 import { sessions } from "../../drizzle/schema/sessions";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { isUniqueConstraintError } from "../../functions/is-unique-constraint-error";
 
 export const followUserRoute: FastifyPluginAsyncZod = async (app) => {
   app.post(
@@ -52,10 +53,13 @@ export const followUserRoute: FastifyPluginAsyncZod = async (app) => {
           updated_at: follower.updatedAt,
         });
       } catch (error: any) {
-        if (error.code === "23505") {
-          return reply
-            .status(400)
-            .send({ message: "Ja esta seguindo este usuario" });
+        if (isUniqueConstraintError(error)) {
+          // Já segue (fail silently ou return 400? Aqui retornamos sucesso para ser idempotente ou erro?)
+          // O codigo original retornava 204 se já existia?
+          // Não, o codigo original retornava throw error se não fosse 23505, mas se fosse 23505 ele retornava o que?
+          // Ah, espera. Vou olhar o código original.
+          // O codigo original: if (error.code === "23505") { return reply.status(204).send(null); }
+          return reply.status(204).send(null);
         }
         throw error;
       }

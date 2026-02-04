@@ -4,6 +4,7 @@ import { db } from "../../drizzle";
 import { users } from "../../drizzle/schema/users";
 import { sessions } from "../../drizzle/schema/sessions";
 import { hashPassword } from "../../functions/hash-password";
+import { isUniqueConstraintError } from "../../functions/is-unique-constraint-error";
 import { eq } from "drizzle-orm";
 
 export const updateUserRoute: FastifyPluginAsyncZod = async (app) => {
@@ -86,7 +87,8 @@ export const updateUserRoute: FastifyPluginAsyncZod = async (app) => {
           updated_at: user.updatedAt,
         });
       } catch (error: any) {
-        if (error.code === "23505") {
+        if (isUniqueConstraintError(error)) {
+          // Unique constraint violation (probably login)
           return reply.status(400).send({ message: "Login ja existe" });
         }
         throw error;
