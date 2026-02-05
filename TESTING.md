@@ -4,6 +4,8 @@
 
 Esta API possui uma suíte completa de **testes End-to-End (E2E)** que cobrem todos os endpoints implementados, garantindo que a aplicação funciona corretamente do início ao fim.
 
+<img width="728" height="854" alt="{93C98A61-E81F-499D-8127-897A5E3010B1}" src="https://github.com/user-attachments/assets/e5014e06-824a-46ac-8e7c-ce3521ed0542" />
+
 ### 🎯 Cobertura de Testes
 
 - ✅ **Users (Usuários)**: 5 testes

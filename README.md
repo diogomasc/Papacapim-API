@@ -4,6 +4,9 @@ Backend API RESTful para a rede social Papacapim, desenvolvida com Node.js, Type
 
 > 💡 **Projeto inspirado na API [api.papacapim.just.pro.br](https://api.papacapim.just.pro.br/)**. O objetivo deste repositório é reproduzir as funcionalidades e endpoints da API original para fins de aprendizado e desenvolvimento.
 
+<img width="1899" height="1936" alt="image" src="https://github.com/user-attachments/assets/237e6dec-a7cb-4c2d-bf88-b5c93475e558" />
+
+
 ## 🚀 Tecnologias
 
 - **Node.js 22** - Runtime JavaScript
