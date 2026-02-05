@@ -15,6 +15,10 @@ Backend API RESTful para a rede social Papacapim, desenvolvida com Node.js, Type
 - **Swagger** - Documentação da API
 - **Docker** - Containerização
 - **bcrypt** - Hash de senhas
+- **Vitest** - Framework de testes unitários e E2E
+- **Supertest** - Testes de integração HTTP
+- **Faker.js** - Geração de dados aleatórios para testes
+- **ESLint** - Padronização de código e linting
 
 ## 📋 Pré-requisitos
 
@@ -80,144 +84,30 @@ A API estará disponível em `http://localhost:3333`
 
 ## 📖 Documentação da API
 
-Acesse a documentação Swagger em: `http://localhost:3333/docs`
+A documentação completa das rotas e esquemas está disponível através do Swagger UI.
 
-### Autenticação
+Acesse em: `http://localhost:3333/docs`
 
-#### POST /sessions
+## 🧪 Testes
 
-Criar nova sessão (login)
+O projeto utiliza **Vitest** para testes automatizados, **Supertest** para requisições HTTP e **Faker.js** para geração de massas de dados.
 
-**Body:**
+### Configuração
 
-```json
-{
-  "login": "usuario",
-  "password": "senha123"
-}
+Certifique-se de criar um arquivo `.env.test` com as configurações do banco de dados de teste (diferente do desenvolvimento).
+
+### Executando os testes
+
+```bash
+# Rodar suite de testes
+npm run test
+
+# Rodar em modo watch (desenvolvimento)
+npm run test:watch
+
+# Verificar cobertura de código
+npm run test:coverage
 ```
-
-**Response 200:**
-
-```json
-{
-  "id": 1,
-  "user_login": "usuario",
-  "token": "uuid-token",
-  "ip": "::1",
-  "created_at": "2024-01-01T00:00:00.000Z",
-  "updated_at": "2024-01-01T00:00:00.000Z"
-}
-```
-
-#### DELETE /sessions/:id
-
-Encerrar sessão (logout)
-
-### Usuários
-
-#### POST /users
-
-Criar novo usuário
-
-**Body:**
-
-```json
-{
-  "user": {
-    "login": "usuario",
-    "name": "Nome Completo",
-    "password": "senha123",
-    "password_confirmation": "senha123"
-  }
-}
-```
-
-#### PATCH /users/:id
-
-Atualizar usuário (campos opcionais)
-
-#### GET /users
-
-Listar usuários (suporta paginação e busca)
-
-- Query params: `page`, `search`
-
-#### GET /users/:login
-
-Obter usuário específico
-
-#### DELETE /users/:id
-
-Excluir usuário
-
-### Seguidores
-
-#### POST /users/:login/followers
-
-Seguir usuário
-
-- Header: `x-session-token`
-
-#### GET /users/:login/followers
-
-Listar seguidores
-
-#### DELETE /users/:login/followers/:id
-
-Deixar de seguir
-
-### Postagens
-
-#### POST /posts
-
-Criar postagem
-
-- Header: `x-session-token`
-
-#### POST /posts/:id/replies
-
-Responder postagem
-
-- Header: `x-session-token`
-
-#### GET /posts
-
-Listar postagens
-
-- Query params: `page`, `feed`, `search`
-
-#### GET /users/:login/posts
-
-Listar postagens de um usuário
-
-#### GET /posts/:id/replies
-
-Listar respostas
-
-#### DELETE /posts/:id
-
-Excluir postagem
-
-- Header: `x-session-token`
-
-### Curtidas
-
-#### POST /posts/:id/likes
-
-Curtir postagem
-
-- Header: `x-session-token`
-
-#### GET /posts/:id/likes
-
-Listar curtidas
-
-#### DELETE /posts/:id/likes/:id
-
-Remover curtida
-
-- Header: `x-session-token`
 
 ## 🐳 Docker
 
@@ -307,4 +197,4 @@ ISC
 
 ## 👤 Autor
 
-Desenvolvido como réplica local da API Papacapim
+Desenvolvido como réplica local da API Papacapim por Diogo Mascarenhas
