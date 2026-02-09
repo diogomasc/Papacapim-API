@@ -6,7 +6,6 @@ Backend API RESTful para a rede social Papacapim, desenvolvida com Node.js, Type
 
 <img width="1899" height="1936" alt="image" src="https://github.com/user-attachments/assets/237e6dec-a7cb-4c2d-bf88-b5c93475e558" />
 
-
 ## 🚀 Tecnologias
 
 - **Node.js 22** - Runtime JavaScript
@@ -67,7 +66,7 @@ JWT_SECRET=your-secret-key-change-this-in-production
 ### 4. Inicie o PostgreSQL com Docker
 
 ```bash
-docker-compose up -d postgres
+docker compose up -d postgres
 ```
 
 ### 5. Gere e execute as migrations
@@ -119,19 +118,19 @@ npm run test:coverage
 Inicie todos os serviços:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Parar serviços:
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Apenas PostgreSQL
 
 ```bash
-docker-compose up -d postgres
+docker compose up -d postgres
 ```
 
 ## 📝 Scripts

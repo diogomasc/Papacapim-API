@@ -82,7 +82,7 @@ As factories estão em `src/tests/factories/` e geram dados de teste consistente
 ### 1. Subir o banco de dados de testes (faça uma vez):
 
 ```bash
-docker-compose up -d postgres-test
+docker compose up -d postgres-test
 ```
 
 ### 2. Rodar todos os testes:
@@ -173,7 +173,7 @@ Para 100% de cobertura, considere adicionar:
 
 **Erro: "ECONNREFUSED localhost:5433"**
 
-- Solução: Execute `docker-compose up -d postgres-test`
+- Solução: Execute `docker compose up -d postgres-test`
 
 **Erro: "relation does not exist"**
 
