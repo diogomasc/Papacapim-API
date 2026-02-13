@@ -69,7 +69,7 @@ describe("Users E2E", () => {
       .set("x-session-token", token)
       .send({ user: { name: newName } });
 
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("name", newName);
   });
 

@@ -112,7 +112,7 @@ export const updateUserRoute: FastifyPluginAsyncZod = async (app) => {
           return reply.status(404).send({ message: "Usuario nao encontrado" });
         }
 
-        return reply.status(201).send({
+        return reply.status(200).send({
           id: user.id,
           login: user.login,
           name: user.name,
